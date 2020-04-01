@@ -56,23 +56,36 @@ def selection_sort(items=list, print_sorting=False) -> list:
     return items
 
 
-def visualize_sort(items=list) -> None:
-    '''Prints the sorting algorithm in action'''
-    print(items)
-
-
-def insertion_sort(items):
+def insertion_sort(items=list, print_sorting=False) -> list:
+    # S/O to https://youtu.be/yCxV0kBpA6M for the help
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Take first unsorted item
-    # TODO: Insert it in sorted order in front of items
+    for i in range(1, len(items)):
+        extr_val = items[i]
+        extr_loc = i - 1
+
+        while extr_loc >= 0 and items[extr_loc] > extr_val:
+            # Moves the greater value to the rigth
+            items[extr_loc + 1] = items[extr_loc]
+            extr_loc -= 1
+        items[extr_loc + 1] = extr_val
+
+        if print_sorting:
+            visualize_sort(items)
+    return items
+
+
+def visualize_sort(items=list) -> None:
+    '''Prints the sorting algorithm in action if enabled'''
+    print(items)
 
 
 if __name__ == '__main__':
-    T1 = [1, 5, 6, 2, 8, 0, 10]
-    print(is_sorted(T1))
+    T1 = [1, 36, 20, 15, 8, 0, 10]
+    print('STARTING VALUES:', T1, '\n')
+    print('Sorted?', is_sorted(T1))
     # bubble_sort(T1, print_sorting=True)
-    selection_sort(T1, print_sorting=True)
+    # selection_sort(T1, print_sorting=True)
+    insertion_sort(T1, print_sorting=True)
