@@ -1,4 +1,5 @@
 #!python
+from sorting_iterative import insertion_sort
 
 
 def merge(items1=list, items2=list) -> list:
@@ -24,15 +25,21 @@ def merge(items1=list, items2=list) -> list:
     return merged_items
 
 
-def split_sort_merge(items):
+def split_sort_merge(items=list) -> list:
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
+    # Split items list into approximately equal halves
+    mid_index = len(items)//2
+    first_half = items[:mid_index]
+    second_half = items[mid_index:]
+    # Sort each half using any other sorting algorithm
+    sorted_f_half = insertion_sort(first_half)
+    sorted_s_half = insertion_sort(second_half)
+    # Merge sorted halves into one list in sorted order
+    return merge(sorted_f_half, sorted_s_half)
 
 
 def merge_sort(items):
@@ -75,4 +82,6 @@ def quick_sort(items, low=None, high=None):
 if __name__ == '__main__':
     T1 = [1, 4, 8, 9]
     T2 = [2, 4, 5, 6]
-    print(merge(T1, T2))
+    T3 = [1, 4, 8, 9, 2, 4, 5, 6]
+    # print(merge(T1, T2))
+    print(split_sort_merge(T3))
