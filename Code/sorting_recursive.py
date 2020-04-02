@@ -1,14 +1,23 @@
 #!python
 
 
-def merge(items1, items2):
+def merge(items1=list, items2=list) -> list:
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    merged_items = []
+    # 1,4,8,9       2,4,5,6 = [1,2,4,4,5,6,8,9]
+    while len(items1) > 0 and len(items2) > 0:
+        if items1[0] > items2[0]:
+            merged_items.append(items2.pop(0))
+        else:
+            merged_items.append(items1.pop(0))
+
+    # Checks if the list is empty
+    merged_items.extend(items2)  # O(k) k being the len of list
+    merged_items.extend(items1)  # O(k) k being the len of list
+    return merged_items
 
 
 def split_sort_merge(items):
@@ -57,3 +66,9 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+
+if __name__ == '__main__':
+    T1 = [1, 4, 8, 9]
+    T2 = [2, 4, 5, 6]
+    merge(T1, T2)

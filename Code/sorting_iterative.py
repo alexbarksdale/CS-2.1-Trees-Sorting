@@ -22,6 +22,7 @@ def bubble_sort(items=list, print_sorting=False) -> list:
 
         # Inner loop is responsible for the switching/checking
         # We remove i at the end because we know that the last item is already sorted
+        # because we're pushing the largest value up each time
         for j in range(0, len(items) - 1 - i):
             if items[j] > items[j + 1]:
                 # Swaps the location of the items
@@ -86,6 +87,6 @@ if __name__ == '__main__':
     T1 = [1, 36, 20, 15, 8, 0, 10]
     print('STARTING VALUES:', T1, '\n')
     print('Sorted?', is_sorted(T1))
-    # bubble_sort(T1, print_sorting=True)
-    # selection_sort(T1, print_sorting=True)
-    insertion_sort(T1, print_sorting=True)
+    # bubble_sort(T1, True)
+    # selection_sort(T1, True)
+    insertion_sort(T1, True)
