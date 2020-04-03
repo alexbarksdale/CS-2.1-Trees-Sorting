@@ -47,24 +47,44 @@ def merge_sort(items=list):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Check if list is so small it's already sorted (base case)
-    if len(items) == 1:
-        return items
+    if len(items) > 1:
+        # Split items list into approximately equal halves
+        mid_index = len(items)//2
+        first_half, second_half = items[:mid_index], items[mid_index:]
 
-    # Split items list into approximately equal halves
-    mid_index = len(items)//2
-    first_half, second_half = items[:mid_index], items[mid_index:]
+        # Sort each half by recursively calling merge sort
+        merge_sort(first_half)
+        merge_sort(second_half)
 
-    print(f'First half: {first_half} Second half: {second_half}')
+        # Merge sorted halves into one list in sorted order
+        got_back = merge(first_half, second_half)
 
-    # Sort each half by recursively calling merge sort
-    sorted_f_half = merge_sort(first_half)
-    sorted_s_half = merge_sort(second_half)
+        for i in range(len(items)):
+            items[i] = got_back[i]
 
-    # Merge sorted halves into one list in sorted order
-    print('Sending:', sorted_f_half, sorted_s_half)
-    got_back = merge(sorted_f_half, sorted_s_half)
-    print(f'Got Back: {got_back} \n')
-    return got_back
+
+# def v2_merge_sort(items=list):
+#     '''This version returns a new merged list'''
+#     # Check if list is so small it's already sorted (base case)
+#     if len(items) == 1:
+#         return items
+
+#     # Split items list into approximately equal halves
+#     mid_index = len(items)//2
+#     first_half, second_half = items[:mid_index], items[mid_index:]
+
+#     print(f'First half: {first_half} Second half: {second_half}')
+
+#     # Sort each half by recursively calling merge sort
+#     sorted_f_half = merge_sort(first_half)
+#     sorted_s_half = merge_sort(second_half)
+
+#     # Merge sorted halves into one list in sorted order
+#     print('Sending:', sorted_f_half, sorted_s_half)
+#     got_back = merge(sorted_f_half, sorted_s_half)
+#     print(f'Got Back: {got_back} \n')
+
+#     return got_back
 
 
 def partition(items, low, high):
@@ -99,5 +119,6 @@ if __name__ == '__main__':
     T3 = [19, 5, 14, 8, 5, 17, 17, 11, 13, 20]
     print('Starting list:', T3, '\n')
     # print(merge(T1, T2))
-    print(split_sort_merge(T3))
-    # print(merge_sort(T3))
+    # print(split_sort_merge(T3))
+    print(merge_sort(T3))
+    # print(v2_merge_sort(T3))
