@@ -19,7 +19,7 @@ def bubble_sort(items=list, print_sorting=False):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    for i in range(0, len(items) - 1):
+    for i in range(len(items)):
         swapped = False
 
         # Inner loop is responsible for the switching/checking
@@ -42,7 +42,7 @@ def selection_sort(items=list, print_sorting=False):
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    for i in range(0, len(items) - 1):
+    for i in range(len(items)):
         min_val = i
 
         for j in range(i, len(items)):
@@ -89,6 +89,6 @@ if __name__ == '__main__':
     T1 = [1, 36, 20, 15, 8, 0, 10]
     print('STARTING VALUES:', T1, '\n')
     print('Sorted?', is_sorted(T1))
-    # bubble_sort(T1, True)
+    bubble_sort(T1, True)
     # selection_sort(T1, True)
-    insertion_sort(T1, True)
+    # insertion_sort(T1, True)
