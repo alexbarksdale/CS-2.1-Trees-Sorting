@@ -2,14 +2,14 @@
 from sorting_iterative import insertion_sort
 
 
-def merge(items1=list, items2=list) -> list:
+def merge(items1=list, items2=list):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # 1,4,8,9       2,4,5,6 = [1,2,4,4,5,6,8,9]
     merged_items = []
 
+    # TODO: Refactor
     # There's gotta be a better way
     while len(items1) > 0 and len(items2) > 0:
         if items1[0] > items2[0]:
@@ -25,7 +25,7 @@ def merge(items1=list, items2=list) -> list:
     return merged_items
 
 
-def split_sort_merge(items=list) -> list:
+def split_sort_merge(items=list):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
@@ -33,8 +33,7 @@ def split_sort_merge(items=list) -> list:
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Split items list into approximately equal halves
     mid_index = len(items)//2
-    first_half = items[:mid_index]
-    second_half = items[mid_index:]
+    first_half, second_half = items[:mid_index], items[mid_index:]
     # Sort each half using any other sorting algorithm
     sorted_f_half = insertion_sort(first_half)
     sorted_s_half = insertion_sort(second_half)
@@ -42,15 +41,30 @@ def split_sort_merge(items=list) -> list:
     return merge(sorted_f_half, sorted_s_half)
 
 
-def merge_sort(items):
+def merge_sort(items=list):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
+    # Check if list is so small it's already sorted (base case)
+    if len(items) == 1:
+        return items
+
+    # Split items list into approximately equal halves
+    mid_index = len(items)//2
+    first_half, second_half = items[:mid_index], items[mid_index:]
+
+    print(f'First half: {first_half} Second half: {second_half}')
+
+    # Sort each half by recursively calling merge sort
+    sorted_f_half = merge_sort(first_half)
+    sorted_s_half = merge_sort(second_half)
+
+    # Merge sorted halves into one list in sorted order
+    print('Sending:', sorted_f_half, sorted_s_half)
+    got_back = merge(sorted_f_half, sorted_s_half)
+    print(f'Got Back: {got_back} \n')
+    return got_back
 
 
 def partition(items, low, high):
@@ -80,8 +94,10 @@ def quick_sort(items, low=None, high=None):
 
 
 if __name__ == '__main__':
-    T1 = [1, 4, 8, 9]
-    T2 = [2, 4, 5, 6]
-    T3 = [1, 4, 8, 9, 2, 4, 5, 6]
+    T1 = [19, 5, 14, 8, 5]
+    T2 = [17, 17, 11, 13, 20]
+    T3 = [19, 5, 14, 8, 5, 17, 17, 11, 13, 20]
+    print('Starting list:', T3, '\n')
     # print(merge(T1, T2))
     print(split_sort_merge(T3))
+    # print(merge_sort(T3))

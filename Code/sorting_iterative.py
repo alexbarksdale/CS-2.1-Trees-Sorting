@@ -1,7 +1,7 @@
 #!python
 
 
-def is_sorted(items=list) -> bool:
+def is_sorted(items=list):
     """Return a boolean indicating whether given items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
@@ -11,9 +11,11 @@ def is_sorted(items=list) -> bool:
     return True
 
 
-def bubble_sort(items=list, print_sorting=False) -> list:
+def bubble_sort(items=list, print_sorting=False):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
+    Running time:
+        - 
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
@@ -35,7 +37,7 @@ def bubble_sort(items=list, print_sorting=False) -> list:
     return items
 
 
-def selection_sort(items=list, print_sorting=False) -> list:
+def selection_sort(items=list, print_sorting=False):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
@@ -57,7 +59,7 @@ def selection_sort(items=list, print_sorting=False) -> list:
     return items
 
 
-def insertion_sort(items=list, print_sorting=False) -> list:
+def insertion_sort(items=list, print_sorting=False):
     # S/O to https://youtu.be/yCxV0kBpA6M for the help
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
@@ -78,7 +80,7 @@ def insertion_sort(items=list, print_sorting=False) -> list:
     return items
 
 
-def visualize_sort(items=list) -> None:
+def visualize_sort(items=list):
     '''Prints the sorting algorithm in action if enabled'''
     print(items)
 
