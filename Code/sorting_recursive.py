@@ -29,8 +29,8 @@ def split_sort_merge(items=list):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: avg O(n^2) because of insertion_sort 
+    Memory usage: O(n) because we're creating an array of (n) elements to merge"""
     # Split items list into approximately equal halves
     mid_index = len(items)//2
     first_half, second_half = items[:mid_index], items[mid_index:]
@@ -44,8 +44,11 @@ def split_sort_merge(items=list):
 def merge_sort(items=list):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(nlogn) for both because merge_sort takes half the elements
+    and merge is taking both lists so (n) elements.
+    Memory usage: O(n) because in each recursive call it creates a new array
+    which take no more than (n) elements and after the merge it is deleted.
+    """
     # Check if list is so small it's already sorted (base case)
     if len(items) > 1:
         # Split items list into approximately equal halves
@@ -53,11 +56,11 @@ def merge_sort(items=list):
         first_half, second_half = items[:mid_index], items[mid_index:]
 
         # Sort each half by recursively calling merge sort
-        merge_sort(first_half)
-        merge_sort(second_half)
+        merge_sort(first_half)  # T(n/2)
+        merge_sort(second_half)  # T(n/2)
 
         # Merge sorted halves into one list in sorted order
-        got_back = merge(first_half, second_half)
+        got_back = merge(first_half, second_half)  # (n)
 
         for i in range(len(items)):
             items[i] = got_back[i]
