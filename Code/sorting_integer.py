@@ -12,6 +12,12 @@ def counting_sort(numbers):
     # TODO: Loop over counts and append that many numbers into output list
     # FIXME: Improve this to mutate input instead of creating new output list
 
+    freq_count = [0] * (max(numbers) + 1)
+
+    for i in range(0, len(numbers)):
+        freq_count[numbers[i]] += 1
+        print(numbers[i], freq_count)
+
 
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
@@ -24,3 +30,7 @@ def bucket_sort(numbers, num_buckets=10):
     # TODO: Sort each bucket using any sorting algorithm (recursive or another)
     # TODO: Loop over buckets and append each bucket's numbers into output list
     # FIXME: Improve this to mutate input instead of creating new output list
+
+
+T1 = [1, 5, 9, 4, 2, 6, 5]
+counting_sort(T1)

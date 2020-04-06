@@ -1,14 +1,15 @@
 #!python
 from sorting_iterative import insertion_sort
+from typing import List
 
 
-def merge(items1=list, items2=list):
+def merge(items1: List[int], items2: List[int]) -> List[int]:
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
     Running time: O(n) it iterates of (n) items given
-    Memory usage: O(n) we're storing (n) merged items in a new array."""
+    Memory usage: O(n) (maybe) we're storing (n) merged items in a new array."""
     merged_items = []
-    i, j = 0, 0  # These values point to the next item
+    i, j = 0, 0  # These values "point" to the next item
 
     while len(items1) > i and len(items2) > j:
         # If item in item1 is greater than the item in item2, append item2
@@ -23,13 +24,13 @@ def merge(items1=list, items2=list):
         # These statements will only fire if a list is empty
         # Depending on which list is empty it'll add the remaining items
         if len(items1) == i:
-            merged_items.extend(items2[j:])
+            merged_items.extend(items2[j:])  # O(k) k being the len of list
         if len(items2) == j:
-            merged_items.extend(items1[i:])
+            merged_items.extend(items1[i:])  # O(k) k being the len of list
     return merged_items
 
 
-def split_sort_merge(items=list):
+def split_sort_merge(items: List[int]) -> List[int]:
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
@@ -45,7 +46,7 @@ def split_sort_merge(items=list):
     return merge(sorted_f_half, sorted_s_half)
 
 
-def merge_sort(items=list):
+def merge_sort(items: List[int]) -> None:
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
     Running time: O(nlogn) for both because merge_sort takes half the elements
@@ -71,7 +72,7 @@ def merge_sort(items=list):
         print(items)
 
 
-# def v2_merge_sort(items=list):
+# def merge_sort(items: List[int]) -> List[int]:
 #     '''This version returns a new merged list'''
 #     # Check if list is so small it's already sorted (base case)
 #     if len(items) == 1:
@@ -101,8 +102,8 @@ def partition(items, low, high):
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
     TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Choose a pivot any way and document your method in docstring above
+    TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Loop through all items in range [low...high]
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
@@ -126,6 +127,6 @@ if __name__ == '__main__':
     T2 = [17, 17, 11, 13, 20]
     T3 = [19, 5, 14, 8, 5, 17, 17, 11, 13, 20]
     print('Starting list:', T3, '\n')
-    # print(split_sort_merge(T3))
-    print(merge_sort(T3))
-    # print(v2_merge_sort(T3))
+    print(split_sort_merge(T3))
+    merge_sort(T3)
+    # print(v2_merge_sort(t3))

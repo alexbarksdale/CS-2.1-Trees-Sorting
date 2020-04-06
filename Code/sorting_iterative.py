@@ -1,7 +1,8 @@
 #!python
+from typing import List
 
 
-def is_sorted(items=list):
+def is_sorted(items: List[int]) -> bool:
     """Return a boolean indicating whether given items are in sorted order.
     Running time: O(n) we're iterating over all elements
     Memory usage: O(1) we're not creating new memory"""
@@ -11,7 +12,7 @@ def is_sorted(items=list):
     return True
 
 
-def bubble_sort(items=list, print_sorting=False):
+def bubble_sort(items: List[int], print_sorting=False) -> List[int]:
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
     Running time: avg O(n^2) because we have an outer loop iterating over all
@@ -36,7 +37,7 @@ def bubble_sort(items=list, print_sorting=False):
     return items
 
 
-def selection_sort(items=list, print_sorting=False):
+def selection_sort(items: List[int], print_sorting=False) -> List[int]:
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
     Running time: O(n^2) we have two loops iterating over all the elements
@@ -58,7 +59,7 @@ def selection_sort(items=list, print_sorting=False):
     return items
 
 
-def insertion_sort(items=list, print_sorting=False):
+def insertion_sort(items: List[int], print_sorting=False) -> List[int]:
     # S/O to https://youtu.be/yCxV0kBpA6M for the help
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
@@ -80,7 +81,7 @@ def insertion_sort(items=list, print_sorting=False):
     return items
 
 
-def visualize_sort(items=list):
+def visualize_sort(items: List[int]) -> None:
     '''Prints the sorting algorithm in action if enabled'''
     print(items)
 
