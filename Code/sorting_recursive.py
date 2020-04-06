@@ -5,23 +5,27 @@ from sorting_iterative import insertion_sort
 def merge(items1=list, items2=list):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n) it iterates of (n) items given
+    Memory usage: O(n) we're storing (n) merged items in a new array."""
     merged_items = []
+    i, j = 0, 0  # These values point to the next item
 
-    # TODO: Refactor
-    # There's gotta be a better way
-    while len(items1) > 0 and len(items2) > 0:
-        if items1[0] > items2[0]:
-            merged_items.append(items2.pop(0))
+    while len(items1) > i and len(items2) > j:
+        # If item in item1 is greater than the item in item2, append item2
+        if items1[i] > items2[j]:
+            merged_items.append(items2[j])
+            j += 1
+        # If item in item1 is less than the item in item2, append item1
         else:
-            merged_items.append(items1.pop(0))
+            merged_items.append(items1[i])
+            i += 1
 
-        # Checks if the list is empty
-        if not items1:
-            merged_items.extend(items2)  # O(k) k being the len of list
-        if not items2:
-            merged_items.extend(items1)  # O(k) k being the len of list
+        # These statements will only fire if a list is empty
+        # Depending on which list is empty it'll add the remaining items
+        if len(items1) == i:
+            merged_items.extend(items2[j:])
+        if len(items2) == j:
+            merged_items.extend(items1[i:])
     return merged_items
 
 
@@ -64,6 +68,7 @@ def merge_sort(items=list):
 
         for i in range(len(items)):
             items[i] = got_back[i]
+        print(items)
 
 
 # def v2_merge_sort(items=list):
@@ -121,7 +126,6 @@ if __name__ == '__main__':
     T2 = [17, 17, 11, 13, 20]
     T3 = [19, 5, 14, 8, 5, 17, 17, 11, 13, 20]
     print('Starting list:', T3, '\n')
-    # print(merge(T1, T2))
     # print(split_sort_merge(T3))
     print(merge_sort(T3))
     # print(v2_merge_sort(T3))
