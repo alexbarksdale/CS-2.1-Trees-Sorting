@@ -12,21 +12,18 @@ def merge(items1: List[int], items2: List[int]) -> List[int]:
     i, j = 0, 0  # These values "point" to the next item
 
     while len(items1) > i and len(items2) > j:
-        # If item in item1 is greater than the item in item2, append item2
         if items1[i] > items2[j]:
             merged_items.append(items2[j])
             j += 1
-        # If item in item1 is less than the item in item2, append item1
-        else:
+        else:  # items1[i] < items2[j]
             merged_items.append(items1[i])
             i += 1
 
-        # These statements will only fire if a list is empty
-        # Depending on which list is empty it'll add the remaining items
-        if len(items1) == i:
-            merged_items.extend(items2[j:])  # O(k) k being the len of list
-        if len(items2) == j:
-            merged_items.extend(items1[i:])  # O(k) k being the len of list
+    # Depending on which list is empty it'll add the remaining items
+    if len(items1) == i:
+        merged_items.extend(items2[j:])  # O(k) k being the len of list
+    else:  # if len(items2) == j:
+        merged_items.extend(items1[i:])  # O(k) k being the len of list
     return merged_items
 
 
@@ -40,17 +37,18 @@ def split_sort_merge(items: List[int]) -> List[int]:
     mid_index = len(items)//2
     first_half, second_half = items[:mid_index], items[mid_index:]
     # Sort each half using any other sorting algorithm
-    sorted_f_half = insertion_sort(first_half)
-    sorted_s_half = insertion_sort(second_half)
+    insertion_sort(first_half)
+    insertion_sort(second_half)
     # Merge sorted halves into one list in sorted order
-    return merge(sorted_f_half, sorted_s_half)
+    got_back = merge(first_half, second_half)  # (n)
+    items[:] = got_back
 
 
 def merge_sort(items: List[int]) -> None:
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
-    Running time: O(nlogn) for both because merge_sort takes half the elements
-    and merge is taking both lists so (n) elements.
+    Running time: O(nlogn) for both because merge_sort is splitting the items in
+    half each time and merge is taking both lists so (n) elements.
     Memory usage: O(n) because in each recursive call it creates a new array
     which take no more than (n) elements and after the merge it is deleted.
     """
@@ -67,8 +65,7 @@ def merge_sort(items: List[int]) -> None:
         # Merge sorted halves into one list in sorted order
         got_back = merge(first_half, second_half)  # (n)
 
-        for i in range(len(items)):
-            items[i] = got_back[i]
+        items[:] = got_back  # O(n) to copy n items
         print(items)
 
 
@@ -96,7 +93,7 @@ def merge_sort(items: List[int]) -> None:
 #     return got_back
 
 
-def partition(items, low, high):
+def partition(items: List[int], low: int, high: int) -> int:
     """Return index `p` after in-place partitioning given items in range
     `[low...high]` by choosing a pivot (TODO: document your method here) from
     that range, moving pivot into index `p`, items less than pivot into range
@@ -104,13 +101,26 @@ def partition(items, low, high):
     TODO: Running time: ??? Why and under what conditions?
     # TODO: Choose a pivot any way and document your method in docstring above
     TODO: Memory usage: ??? Why and under what conditions?"""
+    pivot = items[low]
+    i, j = low, high
+
+    while i < j:
+        while items[i] <= pivot:
+            i += 1
+        while items[j] > pivot:
+            j -= 1
+        if (i < j):  # If j > than i we don't swap because it's in the right spot
+            items[i], items[j] = items[j], items[i]
+    items[low], items[j] = items[j], items[low]
+    return j  # returns the index of the partition
+
     # TODO: Loop through all items in range [low...high]
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
     # TODO: Move pivot item into final position [p] and return index p
 
 
-def quick_sort(items, low=None, high=None):
+def quick_sort(items: List[int], low=None, high=None):
     """Sort given items in place by partitioning items in range `[low...high]`
     around a pivot item and recursively sorting each remaining sublist range.
     TODO: Best case running time: ??? Why and under what conditions?
