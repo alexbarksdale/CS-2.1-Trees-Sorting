@@ -98,14 +98,17 @@ def partition(items: List[int], low: int, high: int) -> int:
     `[low...high]` by choosing a pivot (the very first item) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
-    TODO: Running time: ??? Why and under what conditions?
-    # TODO: Choose a pivot any way and document your method in docstring above
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Best case running time: O(nlogn) if you partition the middle in a sorted list
+    Worst case running time: O(n^2) if the pivot is the first/last or you're 
+    sorting it and when it's already sorted
+    Memory usage:
+        - Best: O(logn) which depends on the tree height
+        - Worst: O(n) this is usually the case when the running time is O(n^2)"""
     pivot = items[low]
     i, j = low, high
 
     while i < j:
-        while items[i] <= pivot and i < j:
+        while items[i] <= pivot and i < j:  # i < j prevents it going out of bounds
             i += 1
         while items[j] > pivot:
             j -= 1
@@ -118,9 +121,12 @@ def partition(items: List[int], low: int, high: int) -> int:
 def quick_sort(items: List[int], low=None, high=None) -> None:
     """Sort given items in place by partitioning items in range `[low...high]`
     around a pivot item and recursively sorting each remaining sublist range.
-    TODO: Best case running time: ??? Why and under what conditions?
-    TODO: Worst case running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Best case running time: O(nlogn) if you partition the middle in a sorted list
+    Worst case running time: O(n^2) if the pivot is the first/last or you're 
+    sorting it and when it's already sorted
+    Memory usage:
+        - Best: O(logn) which depends on the tree height
+        - Worst: O(n) this is usually the case when the running time is O(n^2)"""
     # Check if high and low range bounds have default values (not given)
     if low is None or high is None:
         low, high = 0, len(items) - 1
@@ -128,6 +134,7 @@ def quick_sort(items: List[int], low=None, high=None) -> None:
     # Check if list or range is so small it's already sorted (base case)
     if low < high:
         # Partition items in-place around a pivot and get index of pivot
+        # O(n): iterates the entire list
         partitioned_loc = partition(items, low, high)
         # Sort each sublist range by recursively calling quick sort
         quick_sort(items, low, partitioned_loc - 1)
