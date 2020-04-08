@@ -32,5 +32,5 @@ def bucket_sort(numbers, num_buckets=10):
     # FIXME: Improve this to mutate input instead of creating new output list
 
 
-T1 = [1, 5, 9, 4, 2, 6, 5]
-counting_sort(T1)
+# T1 = [1, 5, 9, 4, 2, 6, 5]
+# counting_sort(T1)

@@ -7,7 +7,7 @@ def merge(items1: List[int], items2: List[int]) -> List[int]:
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
     Running time: O(n) it iterates of (n) items given
-    Memory usage: O(n) (maybe) we're storing (n) merged items in a new array."""
+    Memory usage: O(n) we're storing (n) merged items in a new array."""
     merged_items = []
     i, j = 0, 0  # These values "point" to the next item
 
@@ -95,7 +95,7 @@ def merge_sort(items: List[int]) -> None:
 
 def partition(items: List[int], low: int, high: int) -> int:
     """Return index `p` after in-place partitioning given items in range
-    `[low...high]` by choosing a pivot (TODO: document your method here) from
+    `[low...high]` by choosing a pivot (the very first item) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
     TODO: Running time: ??? Why and under what conditions?
@@ -105,38 +105,48 @@ def partition(items: List[int], low: int, high: int) -> int:
     i, j = low, high
 
     while i < j:
-        while items[i] <= pivot:
+        while items[i] <= pivot and i < j:
             i += 1
         while items[j] > pivot:
             j -= 1
         if (i < j):  # If j > than i we don't swap because it's in the right spot
             items[i], items[j] = items[j], items[i]
-    items[low], items[j] = items[j], items[low]
+    items[low], items[j] = items[j], items[low]  # Swaps the pivot
     return j  # returns the index of the partition
 
-    # TODO: Loop through all items in range [low...high]
-    # TODO: Move items less than pivot into front of range [low...p-1]
-    # TODO: Move items greater than pivot into back of range [p+1...high]
-    # TODO: Move pivot item into final position [p] and return index p
 
-
-def quick_sort(items: List[int], low=None, high=None):
+def quick_sort(items: List[int], low=None, high=None) -> None:
     """Sort given items in place by partitioning items in range `[low...high]`
     around a pivot item and recursively sorting each remaining sublist range.
     TODO: Best case running time: ??? Why and under what conditions?
     TODO: Worst case running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if high and low range bounds have default values (not given)
-    # TODO: Check if list or range is so small it's already sorted (base case)
-    # TODO: Partition items in-place around a pivot and get index of pivot
-    # TODO: Sort each sublist range by recursively calling quick sort
+    # Check if high and low range bounds have default values (not given)
+    if low is None or high is None:
+        low, high = 0, len(items) - 1
+
+    # Check if list or range is so small it's already sorted (base case)
+    if low < high:
+        # Partition items in-place around a pivot and get index of pivot
+        partitioned_loc = partition(items, low, high)
+        # Sort each sublist range by recursively calling quick sort
+        quick_sort(items, low, partitioned_loc - 1)
+        quick_sort(items, partitioned_loc + 1, high)
 
 
 if __name__ == '__main__':
     T1 = [19, 5, 14, 8, 5]
     T2 = [17, 17, 11, 13, 20]
     T3 = [19, 5, 14, 8, 5, 17, 17, 11, 13, 20]
-    print('Starting list:', T3, '\n')
-    print(split_sort_merge(T3))
-    merge_sort(T3)
+
+    QS = [5, 10, 20, 19, 19, 11, 7, 4, 19, 20]
+    print('Starting list:', QS, '\n')
+    # print(split_sort_merge(T3))
+    # merge_sort(T3)
     # print(v2_merge_sort(t3))
+
+    quick_sort(QS)
+    print('Final: ')
+    print(QS[:])
+    # for i in QS:
+    #     print(i, end=" ")
