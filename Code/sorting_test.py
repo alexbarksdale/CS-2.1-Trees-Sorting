@@ -2,7 +2,7 @@
 
 from sorting import random_ints
 from sorting_iterative import is_sorted, bubble_sort, selection_sort, insertion_sort
-from sorting_recursive import split_sort_merge, merge_sort, quick_sort, merge
+from sorting_recursive import split_sort_merge, merge_sort, quick_sort, merge, partition
 from sorting_integer import counting_sort, bucket_sort
 import unittest
 
@@ -230,7 +230,7 @@ class MergeSortTest(unittest.TestCase):
         result = merge(T3, T4)
         assert result == [-15, -10, 0, 5, 6, 12, 15, 20, 25, 30]
 
-    def test_merge_on_decimal_with_negative_list(self):
+    def test_sort_on_decimal_with_negative_list(self):
         T1 = [9.2, -5.3, 2.3, 7.5]
         merge_sort(T1)
         assert T1 == [-5.3, 2.3, 7.5, 9.2]
@@ -263,16 +263,62 @@ class MergeSortTest(unittest.TestCase):
         merge_sort(T3)
         assert T3 == [1, 1, 2, 2, 3, 7, 8, 56, 123, 634]
 
+
+class PartitionTest(unittest.TestCase):
+    def test_partition_small(self):
+        T1 = [19, 5, 14, 8, 5]
+        partition(T1, 0, len(T1) - 1)
+        assert T1 == [5, 5, 14, 8, 19]
+        T2 = [56, 12, 12, 8]
+        partition(T2, 0, len(T2) - 1)
+        assert T2 == [8, 12, 12, 56]
+        T3 = [5, 2, 3, 5]
+        partition(T3, 0, len(T2) - 1)
+        assert T3 == [5, 2, 3, 5]
+
+    def test_partition_with_negative(self):
+        T1 = [-10, -5, -50, 40]
+        partition(T1, 0, len(T1) - 1)
+        assert T1 == [-50, -10, -5, 40]
+        T2 = [-25, -9, 56, 20]
+        partition(T2, 0, len(T2) - 1)
+        assert T2 == [-25, -9, 56, 20]
+        T3 = [-4, 20, -15, 50]
+        partition(T3, 0, len(T2) - 1)
+        assert T3 == [-15, -4, 20, 50]
+
     def test_sort_on_decimal_with_negative_list(self):
         T1 = [9.2, -5.3, 2.3, 7.5]
-        merge_sort(T1)
+        quick_sort(T1)
         assert T1 == [-5.3, 2.3, 7.5, 9.2]
         T2 = [6.2, -12.12, 75.3, 12.12]
-        merge_sort(T2)
+        quick_sort(T2)
         assert T2 == [-12.12, 6.2, 12.12, 75.3]
         T3 = [-9.5, 5.6, -89.1, 12.2]
-        merge_sort(T3)
+        quick_sort(T3)
         assert T3 == [-89.1, -9.5, 5.6, 12.2]
+
+    def test_sort_on_small_list(self):
+        T1 = [39, 6, 8, 12, 10]
+        quick_sort(T1)
+        assert T1 == [6, 8, 10, 12, 39]
+        T2 = [73, 61, 5, 12]
+        quick_sort(T2)
+        assert T2 == [5, 12, 61, 73]
+        T3 = [20, 20, 91, 24]
+        quick_sort(T3)
+        assert T3 == [20, 20, 24, 91]
+
+    def test_sort_on_large_list(self):
+        T1 = [5, 1, 6, 78, 5, 1, 2, 5, 1]
+        quick_sort(T1)
+        assert T1 == [1, 1, 1, 2, 5, 5, 5, 6, 78]
+        T2 = [5, 1, 2, 56, 2, 6, 78, 8, 90, 124]
+        quick_sort(T2)
+        assert T2 == [1, 2, 2, 5, 6, 8, 56, 78, 90, 124]
+        T3 = [56, 1, 3, 634, 7, 8, 2, 123, 1, 2]
+        quick_sort(T3)
+        assert T3 == [1, 1, 2, 2, 3, 7, 8, 56, 123, 634]
 
 
 def get_sort_function():
@@ -304,7 +350,7 @@ def get_sort_function():
 
 
 # If using PyTest, change this variable to the sort function you want to test
-sort = merge_sort
+sort = quick_sort
 
 
 if __name__ == '__main__':

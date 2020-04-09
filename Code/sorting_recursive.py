@@ -117,6 +117,7 @@ def partition(items: List[int], low: int, high: int) -> int:
         if (i < j):  # If j > than i we don't swap because it's in the right spot
             items[i], items[j] = items[j], items[i]
     items[low], items[j] = items[j], items[low]  # Swaps the pivot
+    print(items)
     return j  # returns the index of the partition
 
 
@@ -159,3 +160,6 @@ if __name__ == '__main__':
     print(QS[:])
     # for i in QS:
     #     print(i, end=" ")
+
+    remove = [-4, 20, -15, 50]
+    partition(remove, 0, len(remove) - 1)
