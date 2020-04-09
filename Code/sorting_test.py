@@ -8,7 +8,6 @@ import unittest
 
 
 class IsSortedTest(unittest.TestCase):
-
     def test_is_sorted_on_sorted_integers(self):
         # Positive test cases (examples) with lists of sorted integers
         assert is_sorted([]) is True  # Empty lists are vacuously sorted
@@ -16,18 +15,18 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted([3, 3]) is True  # Duplicate items are in order
         assert is_sorted([3, 5]) is True
         assert is_sorted([3, 5, 7]) is True
-        # TODO: Write more positive test cases with assert is True statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        assert is_sorted([20, 50, 51, 100, 102]) is True
+        assert is_sorted([-40, -1, 0, 70, 90]) is True
+        assert is_sorted([-120, -50, -20, 25, 42]) is True
 
     def test_is_sorted_on_unsorted_integers(self):
         # Negative test cases (counterexamples) with lists of unsorted integers
         assert is_sorted([5, 3]) is False
         assert is_sorted([3, 5, 3]) is False
         assert is_sorted([7, 5, 3]) is False
-        # TODO: Write more negative test cases with assert is False statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        assert is_sorted([20, 50, 49, 100, 102]) is False
+        assert is_sorted([-40, 1, 0, 70, 90]) is False
+        assert is_sorted([-120, -50, -60, 25, 42]) is False
 
     def test_is_sorted_on_sorted_strings(self):
         # Positive test cases (examples) with lists of sorted strings
@@ -35,18 +34,18 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted(['A', 'A']) is True  # Duplicate items are in order
         assert is_sorted(['A', 'B']) is True
         assert is_sorted(['A', 'B', 'C']) is True
-        # TODO: Write more positive test cases with assert is True statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        assert is_sorted(['C', 'F', 'H']) is True
+        assert is_sorted(['N', 'O', 'Y', 'Z']) is True
+        assert is_sorted(['K', 'P', 'Q', 'U']) is True
 
     def test_is_sorted_on_unsorted_strings(self):
         # Negative test cases (counterexamples) with lists of unsorted strings
         assert is_sorted(['B', 'A']) is False
         assert is_sorted(['A', 'B', 'A']) is False
         assert is_sorted(['C', 'B', 'A']) is False
-        # TODO: Write more negative test cases with assert is False statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        assert is_sorted(['Z', 'F', 'H']) is False
+        assert is_sorted(['N', 'Y', 'Q', 'Z']) is False
+        assert is_sorted(['R', 'G', 'Q', 'A']) is False
 
     def test_is_sorted_on_sorted_tuples(self):
         # Positive test cases (examples) with lists of sorted tuples
@@ -64,8 +63,9 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted([(3, 'A'), (5, 'B')]) is True  # Both items sorted
         assert is_sorted([(3, 'A'), (5, 'A')]) is True  # First item sorted
         assert is_sorted([(3, 'A'), (3, 'B')]) is True  # Second item sorted
-        # TODO: Write more positive test cases with assert is True statements
-        # ...
+        assert is_sorted([(0, 'Z'), (2, 'H')]) is True
+        assert is_sorted([(3, 'W'), (5, 'G')]) is True
+        assert is_sorted([(1, 'O'), (2, 'U')]) is True
 
     def test_is_sorted_on_unsorted_tuples(self):
         # Negative test cases (counterexamples) with lists of unsorted tuples
@@ -75,8 +75,9 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted([('B', 5), ('A', 3)]) is False  # Both items unsorted
         assert is_sorted([('B', 3), ('A', 5)]) is False  # First item unsorted
         assert is_sorted([('A', 5), ('A', 3)]) is False  # Second item unsorted
-        # TODO: Write more negative test cases with assert is False statements
-        # ...
+        assert is_sorted([(12, 'W'), (5, 'I')]) is False
+        assert is_sorted([(8, 'A'), (4, 'E')]) is False
+        assert is_sorted([(6, 'T'), (6, 'F')]) is False
 
 
 class IntegerSortTest(unittest.TestCase):
@@ -96,9 +97,15 @@ class IntegerSortTest(unittest.TestCase):
         items3 = [5, 7, 3]
         sort(items3)
         assert items3 == [3, 5, 7]
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items4 = [65, 24, 90, -5]
+        sort(items4)
+        assert items4 == [-5, 24, 65, 90]
+        items5 = [123, 302, -120, 5]
+        sort(items5)
+        assert items5 == [-120, 5, 123, 302]
+        items6 = [102, -50, 90, -24]
+        sort(items6)
+        assert items6 == [-50, -24, 90, 102]
 
     def test_sort_on_small_lists_of_integers_with_duplicates(self):
         items1 = [3, 3]
@@ -113,10 +120,15 @@ class IntegerSortTest(unittest.TestCase):
         items4 = [7, 5, 3, 7, 5, 7, 5, 3, 7]
         sort(items4)
         assert items4 == [3, 3, 5, 5, 5, 7, 7, 7, 7]
-        # TODO: Create lists of integers with many duplicate values
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items5 = [-20, 50, -20, 201, 201, 201]
+        sort(items5)
+        assert items5 == [-20, -20, 50, 201, 201, 201]
+        items6 = [-1, -1, -1, 50, 50, 14, 14]
+        sort(items6)
+        assert items6 == [-1, -1, -1, 14, 14, 50, 50]
+        items7 = [-901, 502, 502, 124, 124, 50, 50]
+        sort(items7)
+        assert items7 == [-901, 50, 50, 124, 124, 502, 502]
 
     def test_sort_on_lists_of_random_integers(self):
         # Generate list of 10 random integers from range [1...20]
@@ -169,9 +181,15 @@ class StringSortTest(unittest.TestCase):
         items3 = ['B', 'C', 'A']
         sort(items3)
         assert items3 == ['A', 'B', 'C']
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items4 = ['X', 'G', 'I', 'P', 'L']
+        sort(items4)
+        assert items4 == ['G', 'I', 'L', 'P', 'X']
+        items5 = ['B', 'Z', 'Y', 'E', 'I', 'F', 'K']
+        sort(items5)
+        assert items5 == ['B', 'E', 'F', 'I', 'K', 'Y', 'Z']
+        items6 = ['J', 'K', 'L', 'F', 'Y', 'D', 'U', 'J', 'D', 'D']
+        sort(items6)
+        assert items6 == ['D', 'D', 'D', 'F', 'J', 'J', 'K', 'L', 'U', 'Y']
 
     def test_sort_on_fish_book_title(self):
         items = 'one fish two fish red fish blue fish'.split()
@@ -215,7 +233,7 @@ def get_sort_function():
 
 
 # If using PyTest, change this variable to the sort function you want to test
-sort = quick_sort
+sort = merge_sort
 
 
 if __name__ == '__main__':

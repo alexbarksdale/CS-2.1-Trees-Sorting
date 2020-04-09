@@ -104,6 +104,8 @@ def partition(items: List[int], low: int, high: int) -> int:
     Memory usage:
         - Best: O(logn) which depends on the tree height
         - Worst: O(n) this is usually the case when the running time is O(n^2)"""
+
+    # Look into median-of-three?
     pivot = items[low]
     i, j = low, high
 
@@ -128,7 +130,7 @@ def quick_sort(items: List[int], low=None, high=None) -> None:
         - Best: O(logn) which depends on the tree height
         - Worst: O(n) this is usually the case when the running time is O(n^2)"""
     # Check if high and low range bounds have default values (not given)
-    if low is None or high is None:
+    if low is None and high is None:
         low, high = 0, len(items) - 1
 
     # Check if list or range is so small it's already sorted (base case)

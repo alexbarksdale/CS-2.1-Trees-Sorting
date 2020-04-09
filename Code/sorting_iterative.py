@@ -6,6 +6,8 @@ def is_sorted(items: List[int]) -> bool:
     """Return a boolean indicating whether given items are in sorted order.
     Running time: O(n) we're iterating over all elements
     Memory usage: O(1) we're not creating new memory"""
+    if len(items) < 2:
+        return True
     for i in range(0, len(items)-1):
         if items[i] > items[i + 1]:
             return False
@@ -87,6 +89,8 @@ def visualize_sort(items: List[int]) -> None:
 
 
 if __name__ == '__main__':
+    test = [(12, 'W'), (5, 'I')]
+    print(is_sorted(test))
     T1 = [2, 1, 0, 4, 5]
     print('STARTING VALUES:', T1, '\n')
     print('Sorted?', is_sorted(T1))
