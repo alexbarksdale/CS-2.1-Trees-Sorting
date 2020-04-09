@@ -2,7 +2,7 @@
 
 from sorting import random_ints
 from sorting_iterative import is_sorted, bubble_sort, selection_sort, insertion_sort
-from sorting_recursive import split_sort_merge, merge_sort, quick_sort
+from sorting_recursive import split_sort_merge, merge_sort, quick_sort, merge
 from sorting_integer import counting_sort, bucket_sort
 import unittest
 
@@ -202,6 +202,77 @@ class StringSortTest(unittest.TestCase):
         sorted_items = sorted(items)  # Copy
         sort(items)  # Mutate
         assert items == sorted_items
+
+
+class MergeSortTest(unittest.TestCase):
+    # merge() assumes two lists are sorted already
+    def test_merge_on_small_list_with_decimal(self):
+        T1 = [5, 6]
+        T2 = [9, 10]
+        result = merge(T1, T2)
+        assert result == [5, 6, 9, 10]
+        T3 = [20, 25, 76]
+        T4 = [80, 89, 95]
+        result = merge(T3, T4)
+        assert result == [20, 25, 76, 80, 89, 95]
+        T5 = [-20, 20, 25.5, 30]
+        T6 = [35.2, 35.5, 40]
+        result = merge(T5, T6)
+        assert result == [-20, 20, 25.5, 30, 35.2, 35.5, 40]
+
+    def test_merge_on_large_list_with_negatives(self):
+        T1 = [1, 1, 1, 5, 6, 7, 8]
+        T2 = [9, 15, 16, 20]
+        result = merge(T1, T2)
+        assert result == [1, 1, 1, 5, 6, 7, 8, 9, 15, 16, 20]
+        T3 = [-15, -10, 0, 5, 6]
+        T4 = [12, 15, 20, 25, 30]
+        result = merge(T3, T4)
+        assert result == [-15, -10, 0, 5, 6, 12, 15, 20, 25, 30]
+
+    def test_merge_on_decimal_with_negative_list(self):
+        T1 = [9.2, -5.3, 2.3, 7.5]
+        merge_sort(T1)
+        assert T1 == [-5.3, 2.3, 7.5, 9.2]
+        T2 = [6.2, -12.12, 75.3, 12.12]
+        merge_sort(T2)
+        assert T2 == [-12.12, 6.2, 12.12, 75.3]
+        T3 = [-9.5, 5.6, -89.1, 12.2]
+        merge_sort(T3)
+        assert T3 == [-89.1, -9.5, 5.6, 12.2]
+
+    def test_sort_on_small_list(self):
+        T1 = [39, 6, 8, 12, 10]
+        merge_sort(T1)
+        assert T1 == [6, 8, 10, 12, 39]
+        T2 = [73, 61, 5, 12]
+        merge_sort(T2)
+        assert T2 == [5, 12, 61, 73]
+        T3 = [20, 20, 91, 24]
+        merge_sort(T3)
+        assert T3 == [20, 20, 24, 91]
+
+    def test_sort_on_large_list(self):
+        T1 = [5, 1, 6, 78, 5, 1, 2, 5, 1]
+        merge_sort(T1)
+        assert T1 == [1, 1, 1, 2, 5, 5, 5, 6, 78]
+        T2 = [5, 1, 2, 56, 2, 6, 78, 8, 90, 124]
+        merge_sort(T2)
+        assert T2 == [1, 2, 2, 5, 6, 8, 56, 78, 90, 124]
+        T3 = [56, 1, 3, 634, 7, 8, 2, 123, 1, 2]
+        merge_sort(T3)
+        assert T3 == [1, 1, 2, 2, 3, 7, 8, 56, 123, 634]
+
+    def test_sort_on_decimal_with_negative_list(self):
+        T1 = [9.2, -5.3, 2.3, 7.5]
+        merge_sort(T1)
+        assert T1 == [-5.3, 2.3, 7.5, 9.2]
+        T2 = [6.2, -12.12, 75.3, 12.12]
+        merge_sort(T2)
+        assert T2 == [-12.12, 6.2, 12.12, 75.3]
+        T3 = [-9.5, 5.6, -89.1, 12.2]
+        merge_sort(T3)
+        assert T3 == [-89.1, -9.5, 5.6, 12.2]
 
 
 def get_sort_function():
