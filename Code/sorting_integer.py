@@ -1,22 +1,27 @@
 #!python
+from typing import List
 
 
-def counting_sort(numbers):
+def counting_sort(numbers: List[int]):
     """Sort given numbers (integers) by counting occurrences of each number,
     then looping over counts and copying that many numbers into output list.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Find range of given numbers (minimum and maximum integer values)
-    # TODO: Create list of counts with a slot for each number in input range
-    # TODO: Loop over given numbers and increment each number's count
-    # TODO: Loop over counts and append that many numbers into output list
+    # Find range of given numbers (minimum and maximum integer values)
     # FIXME: Improve this to mutate input instead of creating new output list
 
-    freq_count = [0] * (max(numbers) + 1)
+    min_val = min(numbers)
+    # Create list of counts with a slot for each number in input range
+    freq_count = [0] * (max(numbers) - min_val + 1)
 
-    for i in range(0, len(numbers)):
-        freq_count[numbers[i]] += 1
-        print(numbers[i], freq_count)
+    # Loop over given numbers and increment each number's count
+    for i in range(len(numbers)):
+        freq_count[numbers[i] - min_val] += 1
+
+    # Loop over counts and append that many numbers into output list
+    ....
+
+    print(freq_count)
 
 
 def bucket_sort(numbers, num_buckets=10):
@@ -32,5 +37,6 @@ def bucket_sort(numbers, num_buckets=10):
     # FIXME: Improve this to mutate input instead of creating new output list
 
 
-# T1 = [1, 5, 9, 4, 2, 6, 5]
-# counting_sort(T1)
+T1 = [0, 1, 5, 9, 4, 2, 6, 5]
+print('Starting values:', T1)
+counting_sort(T1)
