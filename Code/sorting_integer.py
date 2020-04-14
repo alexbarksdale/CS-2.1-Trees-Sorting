@@ -7,8 +7,6 @@ def counting_sort(numbers: List[int]):
     then looping over counts and copying that many numbers into output list.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # Find range of given numbers (minimum and maximum integer values)
-    # FIXME: Improve this to mutate input instead of creating new output list
 
     min_val = min(numbers)
     # Create list of counts with a slot for each number in input range
@@ -19,9 +17,12 @@ def counting_sort(numbers: List[int]):
         freq_count[numbers[i] - min_val] += 1
 
     # Loop over counts and append that many numbers into output list
-    ....
-
-    print(freq_count)
+    counter = 0
+    for i in range(len(freq_count)):
+        for _ in range(freq_count[i]):
+            numbers[counter] = min_val + i
+            counter += 1
+    print(numbers)
 
 
 def bucket_sort(numbers, num_buckets=10):
