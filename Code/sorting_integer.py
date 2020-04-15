@@ -6,8 +6,10 @@ from sorting_iterative import insertion_sort
 def counting_sort(numbers: List[int]):
     """Sort given numbers (integers) by counting occurrences of each number,
     then looping over counts and copying that many numbers into output list.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n + k) where n is the numbers given and k being the
+    possible values/freq_count which is the size of max(n)
+    Memory usage: O(k) k being the possible values/freq_count which is the
+    size of max(n) n being the numbers given"""
 
     min_val = min(numbers)
     # Create list of counts with a slot for each number in input range
@@ -17,7 +19,7 @@ def counting_sort(numbers: List[int]):
     for i in range(len(numbers)):
         freq_count[numbers[i] - min_val] += 1
 
-    # Loop over counts and append that many numbers into output list
+    # Loop over counts and mutate the input
     counter = 0
     for i in range(len(freq_count)):
         for _ in range(freq_count[i]):
@@ -40,6 +42,11 @@ def bucket_sort(numbers, num_buckets=10):
     # Used to put the elements in the buckets
     divider = (max_num + 1) / num_buckets
 
+    print(max_num/num_buckets)
+    print('Confused:', int(numbers[7] / (max_num/num_buckets)))
+    print('Witchcraft:', int(numbers[7] / ((max_num + 1)/num_buckets)))
+    print(int(numbers[7]/divider))
+
     # Loop over given numbers and place each item in appropriate bucket
     for i in range(num_len):
         j = int(numbers[i]/divider)
@@ -49,7 +56,7 @@ def bucket_sort(numbers, num_buckets=10):
     for i in range(len(buckets)):
         insertion_sort(buckets[i])
 
-    # Loop over buckets and append each bucket's numbers into output list
+    # Loop over buckets and mutate the input
     counter = 0
     for i in range(len(buckets)):
         for item in buckets[i]:
