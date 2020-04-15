@@ -40,11 +40,6 @@ def bucket_sort(numbers, num_buckets=10):
     # Used to put the elements in the buckets
     divider = (max_num + 1) / num_buckets
 
-    print(max_num/num_buckets)
-    print('Confused:', int(numbers[7] / (max_num/num_buckets)))
-    print('Whichcraft:', int(numbers[7] / ((max_num + 1)/num_buckets)))
-    print(int(numbers[7]/divider))
-
     # Loop over given numbers and place each item in appropriate bucket
     for i in range(num_len):
         j = int(numbers[i]/divider)
