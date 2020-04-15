@@ -1,5 +1,6 @@
 #!python
 from typing import List
+from sorting_iterative import insertion_sort
 
 
 def counting_sort(numbers: List[int]):
@@ -30,14 +31,42 @@ def bucket_sort(numbers, num_buckets=10):
     then sorting each bucket and concatenating all buckets in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Find range of given numbers (minimum and maximum values)
-    # TODO: Create list of buckets to store numbers in subranges of input range
-    # TODO: Loop over given numbers and place each item in appropriate bucket
-    # TODO: Sort each bucket using any sorting algorithm (recursive or another)
-    # TODO: Loop over buckets and append each bucket's numbers into output list
-    # FIXME: Improve this to mutate input instead of creating new output list
+
+    num_len, max_num = len(numbers), max(numbers)
+
+    # Create list of buckets to store numbers in subranges of input range
+    buckets = [[] for _ in range(num_buckets)]
+
+    # Used to put the elements in the buckets
+    divider = (max_num + 1) / num_buckets
+
+    print(max_num/num_buckets)
+    print('Confused:', int(numbers[7] / (max_num/num_buckets)))
+    print('Whichcraft:', int(numbers[7] / ((max_num + 1)/num_buckets)))
+    print(int(numbers[7]/divider))
+
+    # Loop over given numbers and place each item in appropriate bucket
+    for i in range(num_len):
+        j = int(numbers[i]/divider)
+        buckets[j].append(numbers[i])
+
+    # Sort each bucket using any sorting algorithm (recursive or another)
+    for i in range(len(buckets)):
+        insertion_sort(buckets[i])
+
+    # Loop over buckets and append each bucket's numbers into output list
+    counter = 0
+    for i in range(len(buckets)):
+        for item in buckets[i]:
+            numbers[counter] = item
+            counter += 1
+    print(numbers)
 
 
-T1 = [0, 1, 5, 9, 4, 2, 6, 5]
-print('Starting values:', T1)
-counting_sort(T1)
+T1 = [10, 1, 5, 9, 4, 2, 6, 5]
+# print('Starting values:', T1)
+# counting_sort(T1)
+
+T2 = [22, 45, 12, 8, 10, 6, 72, 81, 33, 18, 50, 14]
+print('Starting values:', T2)
+bucket_sort(T2)

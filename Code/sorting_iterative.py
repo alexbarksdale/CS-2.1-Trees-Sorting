@@ -73,7 +73,7 @@ def insertion_sort(items: List[int], print_sorting=False) -> List[int]:
         extr_loc = i - 1
 
         while extr_loc >= 0 and items[extr_loc] > extr_val:
-            # Moves the greater value to the rigth
+            # Moves the greater value to the right
             items[extr_loc + 1] = items[extr_loc]
             extr_loc -= 1
         items[extr_loc + 1] = extr_val
