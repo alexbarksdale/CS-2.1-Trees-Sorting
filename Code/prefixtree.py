@@ -49,8 +49,7 @@ class PrefixTree:
                 if node.has_child(char):  # checks to see if the char exists already
                     node = node.get_child(char)  # next node
                 else:
-                    new_node = PrefixTreeNode(char)
-                    node.add_child(char, new_node)  # new node
+                    node.add_child(char, PrefixTreeNode(char))  # new node
                     node = node.get_child(char)  # next node
             self.size += 1
             node.terminal = True  # last node is terminal

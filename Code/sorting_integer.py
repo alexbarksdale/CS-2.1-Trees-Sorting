@@ -31,8 +31,10 @@ def counting_sort(numbers: List[int]):
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
     then sorting each bucket and concatenating all buckets in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n + k) n being the values in the list and k being the 
+    bucket's we iterate over.
+    Memory usage: O(n + k) n being the values in the list and k being the 
+    bucket's we iterate over. """
 
     num_len, max_num = len(numbers), max(numbers)
 
