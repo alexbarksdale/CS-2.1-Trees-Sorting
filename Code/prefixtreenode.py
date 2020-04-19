@@ -7,7 +7,7 @@ class PrefixTreeNode:
     associates the next character in a string to the next node along its path from
     the tree's root node to a terminal node that marks the end of the string."""
 
-    # Choose a type of data structure to store children nodes in
+    # Choose an appropriate type of data structure to store children nodes in
     # Hint: Choosing list or dict affects implementation of all child methods
     CHILDREN_TYPE = dict  # Why doesn't {} work?
 
@@ -60,23 +60,3 @@ class PrefixTreeNode:
     def __str__(self):
         """Return a string view of this prefix tree node."""
         return f'({self.character})'
-
-
-# TODO: Remove below later
-# Testing methods for {}
-
-test = {}
-test['Test'] = 10
-print(test)
-print(test['Test'])
-print(test.get('Test'))
-print(test.keys())
-print(test.values())
-print(test.get('hi', False))
-
-
-def testing(test_dict):
-    return 'Test' in test_dict
-
-
-print(testing(test))
