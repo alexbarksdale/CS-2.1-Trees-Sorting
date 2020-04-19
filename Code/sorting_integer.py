@@ -44,10 +44,10 @@ def bucket_sort(numbers, num_buckets=10):
     # Used to put the elements in the buckets
     divider = (max_num + 1) / num_buckets
 
-    print(max_num/num_buckets)
-    print('Confused:', int(numbers[7] / (max_num/num_buckets)))
-    print('Witchcraft:', int(numbers[7] / ((max_num + 1)/num_buckets)))
-    print(int(numbers[7]/divider))
+    # print(max_num/num_buckets)
+    # print('Confused:', int(numbers[7] / (max_num/num_buckets)))
+    # print('Witchcraft:', int(numbers[7] / ((max_num + 1)/num_buckets)))
+    # print(int(numbers[7]/divider))
 
     # Loop over given numbers and place each item in appropriate bucket
     for i in range(num_len):
@@ -71,6 +71,7 @@ T1 = [10, 1, 5, 9, 4, 2, 6, 5]
 # print('Starting values:', T1)
 # counting_sort(T1)
 
-T2 = [22, 45, 12, 8, 10, 6, 72, 81, 33, 18, 50, 14]
+T2 = [19, 5, 14, 8, 5]
+# T2 = [22, 45, 12, 8, 10, 6, 72, 81, 33, 18, 50, 14]
 print('Starting values:', T2)
 bucket_sort(T2)

@@ -321,7 +321,44 @@ class PartitionTest(unittest.TestCase):
         assert T3 == [1, 1, 2, 2, 3, 7, 8, 56, 123, 634]
 
 
+class CountingTest(unittest.TestCase):
+    # String tests will fail
+    def test_counting_small(self):
+        T1 = [19, 5, 14, 8, 5]
+        counting_sort(T1)
+        assert T1 == [5, 5, 8, 14, 19]
+        T2 = [56, 12, 12, 8]
+        counting_sort(T2)
+        assert T2 == [8, 12, 12, 56]
+        T3 = [5, 2, 3, 5]
+        counting_sort(T3)
+        assert T3 == [2, 3, 5, 5]
+
+    def test_counting_with_negative(self):
+        T1 = [-10, -5, -50, 40]
+        counting_sort(T1)
+        assert T1 == [-50, -10, -5, 40]
+        T2 = [-25, -9, 56, 20]
+        counting_sort(T2)
+        assert T2 == [-25, -9, 20, 56]
+        T3 = [-4, 20, -15, 50]
+        counting_sort(T3)
+        assert T3 == [-15, -4, 20, 50]
+
+    def test_counting_on_large_list(self):
+        T1 = [5, 1, 6, 78, 5, 1, 2, 5, 1]
+        counting_sort(T1)
+        assert T1 == [1, 1, 1, 2, 5, 5, 5, 6, 78]
+        T2 = [5, 1, 2, 56, 2, 6, 78, 8, 90, 124]
+        counting_sort(T2)
+        assert T2 == [1, 2, 2, 5, 6, 8, 56, 78, 90, 124]
+        T3 = [56, 1, 3, 634, 7, 8, 2, 123, 1, 2]
+        bucket_sort(T3)
+        assert T3 == [1, 1, 2, 2, 3, 7, 8, 56, 123, 634]
+
+
 class BucketTest(unittest.TestCase):
+    # String tests will fail
     def test_bucket_small(self):
         T1 = [19, 5, 14, 8, 5]
         bucket_sort(T1)
@@ -333,23 +370,12 @@ class BucketTest(unittest.TestCase):
         bucket_sort(T3)
         assert T3 == [2, 3, 5, 5]
 
-    def test_bucket_with_negative(self):
-        T1 = [-10, -5, -50, 40]
-        bucket_sort(T1)
-        assert T1 == [-50, -10, -5, 40]
-        T2 = [-25, -9, 56, 20]
-        bucket_sort(T2)
-        assert T2 == [-25, -9, 20, 56]
-        T3 = [-4, 20, -15, 50]
-        bucket_sort(T3)
-        assert T3 == [-15, -4, 20, 50]
-
     def test_bucket_on_large_list(self):
         T1 = [5, 1, 6, 78, 5, 1, 2, 5, 1]
-        bucket_sort(T3)
+        bucket_sort(T1)
         assert T1 == [1, 1, 1, 2, 5, 5, 5, 6, 78]
         T2 = [5, 1, 2, 56, 2, 6, 78, 8, 90, 124]
-        bucket_sort(T3)
+        bucket_sort(T2)
         assert T2 == [1, 2, 2, 5, 6, 8, 56, 78, 90, 124]
         T3 = [56, 1, 3, 634, 7, 8, 2, 123, 1, 2]
         bucket_sort(T3)
@@ -385,7 +411,7 @@ def get_sort_function():
 
 
 # If using PyTest, change this variable to the sort function you want to test
-sort = bucket_sort
+sort = merge_sort
 
 
 if __name__ == '__main__':
