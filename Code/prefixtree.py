@@ -1,6 +1,7 @@
 #!python3
 
 from prefixtreenode import PrefixTreeNode
+from typing import Tuple, Callable
 
 
 class PrefixTree:
@@ -29,15 +30,15 @@ class PrefixTree:
             for string in strings:
                 self.insert(string)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return a string representation of this prefix tree."""
         return f'PrefixTree({self.strings()!r})'
 
-    def is_empty(self):
+    def is_empty(self) -> int:
         """Return True if this prefix tree is empty (contains no strings)."""
         return self.size == 0
 
-    def contains(self, string):
+    def contains(self, string: str) -> bool:
         """Return True if this prefix tree contains the given string."""
         # return string in self.strings()  # Don't do at home (^_^)
         node = self.root
@@ -48,7 +49,7 @@ class PrefixTree:
                 return False
         return node.is_terminal()
 
-    def insert(self, string):
+    def insert(self, string: str) -> None:
         """Insert the given string into this prefix tree."""
         if not self.contains(string):  # Makes sure the string isn't already in the tree
             node = self.root
@@ -61,7 +62,7 @@ class PrefixTree:
             self.size += 1
             node.terminal = True  # last node is terminal
 
-    def _find_node(self, string):
+    def _find_node(self, string: str) -> Tuple[PrefixTreeNode, int]:
         """Return a pair containing the deepest node in this prefix tree that
         matches the longest prefix of the given string and the node's depth.
         The depth returned is equal to the number of prefix characters matched.
@@ -70,32 +71,38 @@ class PrefixTree:
         if len(string) == 0:
             return self.root, 0
 
-        # TODO: Test if this works
         # Start with the root node and depth counter
         node, depth = self.root, 0
         for char in string:
-            if node.has_child(char):
+            if node.has_child(char):  # Check if the char exists
                 node = node.get_child(char)  # found the char, go next
                 depth += 1  # inc the depth count
-            else:
-                raise ValueError('Cannot find a pair')
-        return string, depth
+        return node, depth
 
-    def complete(self, prefix):
+    def complete(self, prefix: str) -> list:
         """Return a list of all strings stored in this prefix tree that start
         with the given prefix string."""
         # Create a list of completions in prefix tree
         completions = []
-        # TODO
 
-    def strings(self):
+        # Unpacking the node and depth from _find_node()
+        node, depth = self._find_node(prefix)
+
+        if depth == 0:  # Diver didn't make it, rip. (Didn't find a node)
+            return completions
+
+        # A node was retrieved, traverse it.
+        self._traverse(node, prefix, completions.append)
+        return completions
+
+    def strings(self) -> list:
         """Return a list of all strings stored in this prefix tree."""
         # Create a list of all strings in prefix tree
         all_strings = []
         self._traverse(self.root, '', all_strings.append)
         return all_strings
 
-    def _traverse(self, node, prefix, visit):
+    def _traverse(self, node: PrefixTreeNode, prefix: str, visit: Callable) -> None:
         """Traverse this prefix tree with recursive depth-first traversal.
         Start at the given node with the given prefix representing its path in
         this prefix tree and visit each node with the given visit function."""
