@@ -39,7 +39,14 @@ class PrefixTree:
 
     def contains(self, string):
         """Return True if this prefix tree contains the given string."""
-        return string in self.strings()
+        # return string in self.strings()  # Don't do at home (^_^)
+        node = self.root
+        for char in string:
+            if node.has_child(char):
+                node = node.get_child(char)
+            else:  # Doesn't exist
+                return False
+        return node.is_terminal()
 
     def insert(self, string):
         """Insert the given string into this prefix tree."""
@@ -62,9 +69,17 @@ class PrefixTree:
         # Match the empty string
         if len(string) == 0:
             return self.root, 0
-        # Start with the root node
-        node = self.root
-        # TODO
+
+        # TODO: Test if this works
+        # Start with the root node and depth counter
+        node, depth = self.root, 0
+        for char in string:
+            if node.has_child(char):
+                node = node.get_child(char)  # found the char, go next
+                depth += 1  # inc the depth count
+            else:
+                raise ValueError('Cannot find a pair')
+        return string, depth
 
     def complete(self, prefix):
         """Return a list of all strings stored in this prefix tree that start
