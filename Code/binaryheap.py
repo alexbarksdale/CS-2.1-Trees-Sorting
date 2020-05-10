@@ -125,16 +125,67 @@ class BinaryMinHeap(object):
         if left_index > self._last_index():
             return  # This index is a leaf node (does not have any children)
 
+        # Determine which child item to compare this node's item to
+        child_index = 0
+
+        if right_index >= self.size():
+            child_index = left_index
+        elif self.items[left_index] < self.items[right_index]:
+            child_index = left_index
+        elif self.items[right_index] < self.items[left_index]:
+            child_index = right_index
+
         # Get the item's value
         item = self.items[index]
-        # TODO: Determine which child item to compare this node's item to
-        child_index = 0
-        # ...
-        # TODO: Swap this item with a child item if values are out of order
+
         child_item = self.items[child_index]
-        # ...
-        # TODO: Recursively bubble down again if necessary
-        # ...
+        if item > child_item:
+            # Swap this item with a child item if values are out of order
+            self.items[child_index], self.items[index] = self.items[index], self.items[child_index]
+            # Recursively bubble down
+            self._bubble_down(child_index)
+
+    def heapify(self, items, size, index):
+        """Acknowledgement: Geeksforgeeks for explaining how heapify works. 
+        https://www.geeksforgeeks.org/heap-sort-for-decreasing-order-using-min-heap/
+        This makes it easier to heap_sort as it allows you to swap in place without
+        creating extra memory for the sorted items."""
+        sml = index
+        left = self._left_child_index(index)
+        right = self._right_child_index(index)
+
+        # Check if the left child is smaller than the root
+        if left < size and items[left] < items[sml]:
+            sml = left
+        # Right child is smaller than the root
+        if right < size and items[right] < items[sml]:
+            sml = right
+        # The root isn't the smallest
+        if sml != index:
+            items[index], items[sml] = items[sml], items[index]
+            self.heapify(items, size, sml)
+
+    def heap_sort(self, items):
+        """Acknowledgement: Geeksforgeeks for improving the previous version
+        which is below the current implementation."""
+        size = len(items)
+
+        # Builds a heap
+        for i in range(size//2 - 1, -1, -1):
+            self.heapify(items, size, i)
+        for i in range(size-1, 0, -1):
+            # Swapping the current root to the end
+            items[i], items[0] = items[0], items[i]  # swap
+            self.heapify(items, i, 0)
+
+        # The code below wont work in the class. This is just to show the differences.
+        # items = BinaryMinHeap(items)
+        # sorted_heap = [] # Storing the sorted values
+
+        # for _ in range(items):
+        #     # Appends the last minimum value in the heap
+        #     sorted_heap.append(items.delete_min())
+        # return sorted_heap
 
     def _last_index(self):
         """Return the last valid index in the underlying array of items."""
@@ -178,6 +229,12 @@ def test_binary_min_heap():
         print('delete_min: {}'.format(heap_min))
         print('heap: {}'.format(heap))
         print('size: {}'.format(heap.size()))
+
+    # List to heap sort. Expected: 12,25,45,50,65
+    T1 = [50, 45, 25, 12, 65]
+    heap.heap_sort(T1)
+    for i in range(len(T1)):
+        print(T1[i])
 
 
 if __name__ == '__main__':
